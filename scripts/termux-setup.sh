@@ -9,6 +9,11 @@ if [[ "$PACKAGE" != "codebuff" && "$PACKAGE" != "freebuff" ]]; then
   exit 1
 fi
 
+echo "==> Switching to Cloudflare mirror (avoids termux.net being blocked/unreachable on some ISPs)"
+mkdir -p "$PREFIX/etc/apt/sources.list.d"
+rm -f "$PREFIX/etc/apt/sources.list.d/termux-main.list"
+echo "deb https://packages-cf.termux.dev/apt/termux-main stable main" > "$PREFIX/etc/apt/sources.list"
+
 echo "==> Updating Termux packages"
 pkg update -y && pkg upgrade -y
 
